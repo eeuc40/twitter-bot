@@ -1,4 +1,5 @@
 var TwitterBotHelper = require('./TwitterBotHelper.js');
 var twitterBotHelper = new TwitterBotHelper();
 
-twitterBotHelper.post('This is my second tweet tonight!');
+// Lets listen for new Followers so we can send them a tweet saying thanks for following!
+twitterBotHelper.newFollowerIntroductionTweet();

@@ -5,13 +5,13 @@ var TwitterBotHelper = function() {
 };
 
 /**
- * A helper function to verify the tweet is valid
+ * A helper function to verify the tweet is valid and to post it
  * 
- * @param {type} status The 
+ * @param {type} status The status we should post
  * @returns {Boolean} returns whether the status has been added
  */
 TwitterBotHelper.prototype.post = function(status) {
-    // Check to see if the string is blank or 
+    // Check to see if the string is blank or is more than 140 characters
     var statusLength = status.length;
     if (statusLength > 140) {
         console.log('Sorry, status must be less than 140 characters!');
@@ -28,6 +28,20 @@ TwitterBotHelper.prototype.post = function(status) {
             return true;
         }
     });
+};
+
+/**
+ * A function to send a "Thanks for following" message directly to the user.
+ * 
+ * @returns {Boolean} returns true
+ */
+TwitterBotHelper.prototype.newFollowerIntroductionTweet = function() {
+    var stream = T.stream('user');
+    stream.on('follow', function(event) {
+        var screenName = event.source.screen_name;
+        TwitterBotHelper.prototype.post.call(this, '@' + screenName + ' Thanks for following!');
+    });
+    return true;
 };
 
 module.exports = TwitterBotHelper;
