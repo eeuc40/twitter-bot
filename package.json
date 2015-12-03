@@ -1,0 +1,12 @@
+{
+  "name": "twitter-bot",
+  "description": "A Simple Twitter Bot with Travis CI Testing",
+  "author": "Richie",
+  "version": "0.0.1",
+  "devDependencies": {
+    "twit": "^2.1"
+  },
+  "scripts": {
+    "test": "node ./test/twitterBotHelperTest.js"
+  }
+}
