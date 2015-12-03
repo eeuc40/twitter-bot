@@ -12,6 +12,7 @@ describe('TwitterBotHelper', function() {
       for(var characterCount = 0; characterCount < 170; characterCount++){
           longString += "A";
       }
+      // Test for a long string 
       assert.equal(false, twitterHelper.post(longString));
     });
   });
