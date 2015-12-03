@@ -4,7 +4,8 @@
   "author": "Richie",
   "version": "0.0.1",
   "devDependencies": {
-    "twit": "^2.1"
+    "twit": "^2.1",
+    "mocha":"^2.3.4"
   },
   "scripts": {
      "test": "./node_modules/mocha/bin/mocha"
