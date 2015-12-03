@@ -7,6 +7,6 @@
     "twit": "^2.1"
   },
   "scripts": {
-    "test": "node ./test/twitterBotHelperTest.js"
+     "test": "./node_modules/mocha/bin/mocha"
   }
 }
