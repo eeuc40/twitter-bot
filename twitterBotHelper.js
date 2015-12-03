@@ -44,4 +44,23 @@ TwitterBotHelper.prototype.newFollowerIntroductionTweet = function() {
     return true;
 };
 
+/**
+ * 
+ * @param {type} hashTag
+ * @param {type} callbackFunction
+ * @returns {undefined}
+ */
+TwitterBotHelper.prototype.getLatestTweetFromHashtag = function(hashTag, callbackFunction) {
+    T.get('search/tweets', {q: hashTag, count: 1, result_type: "recent"}, function(error, data, response) {
+        if (error) {
+            console.log('There was an error finding this hashtag');
+        } else if (data) {
+            var statusData = data['statuses'][0];
+            callbackFunction({id:statusData.id, text: statusData.text});
+        }
+    });
+};
+
+
+
 module.exports = TwitterBotHelper;
