@@ -16,26 +16,14 @@ describe('TwitterBotHelper', function() {
             assert.equal(false, twitterHelper.post(longString));
         });
     });
-    
-    
+
+
     describe('#getLatestTweetFromHashtag()', function() {
-        it('should return an object', function(done) {
-             twitterHelper.getLatestTweetFromHashtag('#website', function(statusData){
-                 assert.equal('object', typeof statusData);
-                 done();
-             });
-        });
-        it('should return an integer as an id', function(done) {
-             twitterHelper.getLatestTweetFromHashtag('#website', function(statusData){
-                 assert.equal('number', typeof statusData.id);
-                 done();
-             });
-        });
-        it('should return a string as for text field', function(done) {
-             twitterHelper.getLatestTweetFromHashtag('#website', function(statusData){
-                 assert.equal('string', typeof statusData.text);
-                 done();
-             });
+        it('should return false', function(done) {
+            twitterHelper.getLatestTweetFromHashtag('', function(statusData) {
+                assert.equal(false, statusData);
+                done();
+            });
         });
     });
 });

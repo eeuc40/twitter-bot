@@ -54,9 +54,14 @@ TwitterBotHelper.prototype.getLatestTweetFromHashtag = function(hashTag, callbac
     T.get('search/tweets', {q: hashTag, count: 1, result_type: "recent"}, function(error, data, response) {
         if (error) {
             console.log('There was an error finding this hashtag');
+            callbackFunction(false);
         } else if (data) {
             var statusData = data['statuses'][0];
-            callbackFunction({id:statusData.id, text: statusData.text});
+            var statusObject = {
+                "id": statusData.id,
+                "text": statusData.text
+            };
+            callbackFunction(statusObject);
         }
     });
 };
