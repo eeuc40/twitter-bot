@@ -46,13 +46,19 @@ TwitterBotHelper.prototype.newFollowerIntroductionTweet = function() {
 
 /**
  * 
- * @param {type} hashTag
+ * @param {type} searchQuery
  * @param {type} callbackFunction
  * @returns {undefined}
  */
-TwitterBotHelper.prototype.getLatestTweetFromHashtag = function(hashTag, callbackFunction) {
-    T.get('search/tweets', {q: hashTag, count: 1, result_type: "recent"}, function(error, data, response) {
-        if (error) {            
+TwitterBotHelper.prototype.getLatestTweetFromHashtag = function(searchQuery, callbackFunction) {
+    // If the search query is empty we should end the call and return an error to the user
+    if (searchQuery === '') {
+        callbackFunction(false);
+        return false;
+    }
+
+    T.get('search/tweets', {q: searchQuery, count: 1, result_type: "recent"}, function(error, data, response) {
+        if (error) {
             console.log('There was an error finding this hashtag');
             callbackFunction(false);
         } else if (data) {
