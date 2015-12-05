@@ -7,10 +7,11 @@ var TwitterBotHelper = function() {
 /**
  * A helper function to verify the tweet is valid and to post it
  * 
- * @param {type} status The status we should post
+ * @param {string} status The status we should post
+ * @param {Boolean} directMessage This is whether the tweet should be sent as a direct message
  * @returns {Boolean} returns whether the status has been added
  */
-TwitterBotHelper.prototype.post = function(status) {
+TwitterBotHelper.prototype.post = function(status, directMessage, userData) {
     // Check to see if the string is blank or is more than 140 characters
     var statusLength = status.length;
     if (statusLength > 140) {
@@ -20,8 +21,21 @@ TwitterBotHelper.prototype.post = function(status) {
         console.log('Sorry, status cannot be blank!');
         return false;
     }
+
+    // So we can tell the application whether to post the message as direct message or not
+    var apiEndpoint = '';
+    if (directMessage) {
+        apiEndpoint = 'direct_messages/new';
+        // The user data should contain a screen name or an user id
+        var apiData = userData;
+        apiData.status = status;
+    } else {
+        apiEndpoint = 'statuses/update';
+        var apiData = {status: status};
+    }
+
     // Finally we'll send the status update if the status is valid
-    T.post('statuses/update', {status: status}, function(error, data, response) {
+    T.post(apiEndpoint, apiData, function(error, data, response) {
         if (error) {
             console.log('There was an error tweeting this message.', error);
         } else if (response) {
@@ -39,7 +53,7 @@ TwitterBotHelper.prototype.newFollowerIntroductionTweet = function() {
     var stream = T.stream('user');
     stream.on('follow', function(event) {
         var screenName = event.source.screen_name;
-        TwitterBotHelper.prototype.post.call(this, '@' + screenName + ' Thanks for following!');
+        TwitterBotHelper.prototype.post.call(this, 'Thanks for following!', true, {screen_name: screenName});
     });
     return true;
 };
