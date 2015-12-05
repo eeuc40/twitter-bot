@@ -19,9 +19,18 @@ describe('TwitterBotHelper', function() {
 
 
     describe('#getLatestTweetFromHashtag()', function() {
-        it('should return false', function(done) {
+        it('should return false because hashtag not provided', function(done) {
             twitterHelper.getLatestTweetFromHashtag('', function(statusData) {
                 assert.equal(false, statusData);
+                done();
+            });
+        });
+    });
+
+    describe('#getLatestTweetFromHashtag()', function() {
+        it('should return a tweet object', function(done) {
+            twitterHelper.getLatestTweetFromHashtag('#website', function(statusData) {
+                assert.equal('object', typeof statusData);
                 done();
             });
         });
