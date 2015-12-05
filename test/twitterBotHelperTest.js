@@ -17,6 +17,7 @@ describe('TwitterBotHelper', function() {
         });
     });
     
+    
     describe('#getLatestTweetFromHashtag()', function() {
         it('should return an object', function(done) {
              twitterHelper.getLatestTweetFromHashtag('#website', function(statusData){
